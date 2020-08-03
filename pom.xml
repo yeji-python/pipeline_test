@@ -39,6 +39,11 @@
           <executable>true</executable>
         </configuration>
       </plugin>
-    </plugins>
+      <plugin>
+        <groupId>com.alibaba.cloud</groupId>
+        <artifactId>toolkit-maven-plugin</artifactId>
+        <version>1.0.9</version>
+      </plugin>
+    </plugins> 
   </build>
 </project>
