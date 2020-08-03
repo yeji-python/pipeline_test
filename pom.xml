@@ -43,6 +43,10 @@
         <groupId>com.alibaba.cloud</groupId>
         <artifactId>toolkit-maven-plugin</artifactId>
         <version>1.0.9</version>
+        <configuration>
+          <accessKeyId>LTAI4GJSBJSmt6H32L4Mh8CA</accessKeyId>
+          <accessKeySecret>rcVPRB7YtIaKZT0aBDZHhktsHSXZJJ</accessKeySecret>
+        </configuration>
       </plugin>
     </plugins> 
   </build>
