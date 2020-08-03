@@ -5,15 +5,14 @@ pipeline {
     }
     parameters {            //声明构建所需变量
         choice(name: 'env', choices: ['uat', 'prod'], description: '请选择需要构建环境')
-        gitParameter branchFilter: 'origin/(.*)', defaultValue: 'develop', name: 'BRANCH', type: 'PT_BRANCH'
+        gitParameter branchFilter: 'origin/(.*)', defaultValue: 'master', name: 'BRANCH', type: 'PT_BRANCH_TAG', selectedValue: 'DEFAULT', sortMode: 'DESCENDING_SMART', description: '请选择发布的分支'
     }
     stages{
         stage("选择构建节点和构建"){
             agent { label 'master'}
             steps{
                 echo "这是第一个步骤"
-                git branch: "${params.BRANCH}", credentialsId: '85205ecb-ef06-4dba-ad74-23983ea3de19', url: 'https://github.com/yeji-python/pipeline_test.git'
-                
+                checkout([$class: 'GitSCM', branches: [[name: "$(params.BRANCH)"]], doGenerateSubmoduleConfigurations: false, extensions: [], gitTool: 'Default', submoduleCfg: [], userRemoteConfigs: [[usl: 'https://github.com/yeji-python/pipeline_test.git', credentialsId: '69d10d50-d671-415c-9b38-e787ed3184fd']]])                
             }
         }
         stage("maven打包和发布"){
