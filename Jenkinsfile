@@ -34,12 +34,4 @@ pipeline {
             }
         }
     }
-    post{
-        success{
-            echo "发布成功!"  
-        }
-        failure{
-            echo "发布失败!"
-        }
-    }
 }
