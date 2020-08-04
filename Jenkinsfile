@@ -18,7 +18,8 @@ pipeline {
             agent { label 'master'}
             steps{
                 echo "这是第一个步骤"
-                checkout([branches: [[name: "${params.BRANCH}"]], 
+                checkout([$class: 'GitSCM',
+                         branches: [[name: "${params.BRANCH}"]], 
                          doGenerateSubmoduleConfigurations: false,
                          extensions: [], 
                          gitTool: 'Default', 
