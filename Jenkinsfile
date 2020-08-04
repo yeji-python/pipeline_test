@@ -21,8 +21,10 @@ pipeline {
     }
     stages{
         stage("选择发布的项目") {
-            for (p_name in select.tokenize(',')){
-                echo "选择的项目为:" + p_name
+            script {
+                for (p_name in select.tokenize(',')){
+                    echo "选择的项目为:" + p_name
+                }
             }
         }
         stage("选择构建节点和构建"){
