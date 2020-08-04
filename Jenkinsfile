@@ -16,7 +16,15 @@ pipeline {
                      sortMode: 'DESCENDING_SMART', 
                      description: '请选择发布的分支')
     }
+    environment {
+        select = "$params.projectNameChoose"
+    }
     stages{
+        stage("选择发布的项目") {
+            for (p_name in select.tokenize(',')){
+                echo "选择的项目为:" + p_name
+            }
+        }
         stage("选择构建节点和构建"){
             agent { label 'master'}
             steps{
