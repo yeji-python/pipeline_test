@@ -1,5 +1,8 @@
 pipeline {
     agent none               //全局必须带有agent表明此pipeline执行节点
+    tools {
+        maven 'maven_home'
+    }
     options {
         timeout(time: 1, unit: 'HOURS')
     }
