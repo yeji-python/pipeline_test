@@ -36,14 +36,10 @@ pipeline {
     }
     post{
         success{
-            script{
-                echo "发布成功!"
-            }
+            echo "发布成功!"  
         }
         failure{
-            script{
-                echo "发布失败!"
-            }
+            echo "发布失败!"
         }
     }
 }
