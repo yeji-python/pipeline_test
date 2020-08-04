@@ -33,6 +33,7 @@ pipeline {
                sh "mvn clean package toolkit:deploy -DskipTests=true -Dedas_config=${env}-edas-config.yaml"  
             }
         }
+    }
     post{
         success{
             script{
@@ -45,5 +46,4 @@ pipeline {
             }
         }
     }
-  }
 }
