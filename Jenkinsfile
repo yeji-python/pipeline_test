@@ -5,13 +5,13 @@ pipeline {
     }
     parameters {            //声明构建所需变量
         choice(name: 'env', choices: ['uat', 'prod'], description: '请选择需要构建环境')
-        gitParameter branchFilter: 'origin/(.*)',
+        gitParameter(branchFilter: 'origin/(.*)',
                      defaultValue: 'master', 
                      name: 'BRANCH', 
                      type: 'PT_BRANCH_TAG', 
                      selectedValue: 'DEFAULT', 
                      sortMode: 'DESCENDING_SMART', 
-                     description: '请选择发布的分支'
+                     description: '请选择发布的分支')
     }
     stages{
         stage("选择构建节点和构建"){
