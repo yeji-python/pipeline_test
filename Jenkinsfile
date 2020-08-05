@@ -22,8 +22,8 @@ pipeline {
     stages{
 
         stage("选择发布的项目") {
+            agent { label 'master'}
             steps {
-                agent { label 'master'}
                 script {
                     for (p_name in select.tokenize(',')){
                         echo "选择的项目为:" + p_name
