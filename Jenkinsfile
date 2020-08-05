@@ -31,7 +31,7 @@ pipeline {
                         echo "当前环境为:" + params.env
                         build(job: p_name, propagate: false)
                         parameters: [[$class: 'GitParameterValue', name: 'BRANCH', value: '${params.BRANCH}']] 
-                        parameters: [choice(name: 'env', value: '${params.env}')], propagate: false, wait: false                        
+                        parameters: [choice(name: 'env', value: '${params.env}')]                 
                     }
                 }
             }
