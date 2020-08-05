@@ -23,33 +23,39 @@ pipeline {
 
         stage("选择发布的项目") {
             steps {
+                agent { label 'master'}
                 script {
                     for (p_name in select.tokenize(',')){
                         echo "选择的项目为:" + p_name
+                        echo "当前分支为:" + params.BRANCH
+                        echo "当前环境为:" + params.env
+                        build(job: p_name, propagate: false)
+                        parameters: [[$class: 'GitParameterValue', name: 'BRANCH', value: '${params.BRANCH}']] 
+                        parameters: [choice(name: 'env', value: '${params.env}')], propagate: false, wait: false                        
                     }
                 }
             }
         }
 
-        stage("选择构建节点和构建"){
-            agent { label 'master'}
-            steps{
-                echo "这是第一个步骤"
-                checkout([$class: 'GitSCM',
-                         branches: [[name: "${params.BRANCH}"]], 
-                         doGenerateSubmoduleConfigurations: false,
-                         extensions: [], 
-                         gitTool: 'Default', 
-                         submoduleCfg: [], 
-                         userRemoteConfigs: [[url: 'https://github.com/yeji-python/pipeline_test.git', credentialsId: '69d10d50-d671-415c-9b38-e787ed3184fd']]
-                       ])                
-            }
-        }
-        stage("maven打包和发布"){
-            agent { label 'master'}
-            steps{
-               sh "mvn clean package toolkit:deploy -DskipTests=true -Dedas_config=${params.env}-edas-config.yaml"  
-            }
-        }
+//        stage("选择构建节点和构建"){
+//            agent { label 'master'}
+//            steps{
+//                echo "这是第一个步骤"
+//                checkout([$class: 'GitSCM',
+//                         branches: [[name: "${params.BRANCH}"]], 
+//                         doGenerateSubmoduleConfigurations: false,
+//                         extensions: [], 
+//                         gitTool: 'Default', 
+//                         submoduleCfg: [], 
+//                         userRemoteConfigs: [[url: 'https://github.com/yeji-python/pipeline_test.git', credentialsId: '69d10d50-d671-415c-9b38-e787ed3184fd']]
+//                       ])                
+//            }
+//       }
+//        stage("maven打包和发布"){
+//            agent { label 'master'}
+//            steps{
+//               sh "mvn clean package toolkit:deploy -DskipTests=true -Dedas_config=${params.env}-edas-config.yaml"  
+//            }
+//        }
     }
 }
