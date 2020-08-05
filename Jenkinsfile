@@ -31,7 +31,7 @@ pipeline {
                         echo "当前分支为:" + params.BRANCH
                         echo "当前环境为:" + params.env
                         stage('当前执行工程:' + job_name){
-                            build(job: job_name, propagate: false, parameters: [gitParameter(name: 'BRANCH', value: '${params.BRANCH}'), string(name: 'env', value: '${params.env}')])
+                            build(job: job_name, propagate: false, parameters: [gitParameter(name: 'BRANCH', value: params.BRANCH), string(name: 'env', value: params.env)])
 //                          [$class: 'GitParameterValue', name: 'BRANCH', value: '${params.BRANCH}']
 //                          parameters: [choice(name: 'env', value: '${params.env}')]     
                         }            
