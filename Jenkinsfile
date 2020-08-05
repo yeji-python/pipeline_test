@@ -26,10 +26,10 @@ pipeline {
             steps {
                 script {
                     for (p_name in select.tokenize(',')){
-                        echo "选择的项目为:" + p_name
+                        echo "选择的项目为:" + p_name.tokenize('"')
                         echo "当前分支为:" + params.BRANCH
                         echo "当前环境为:" + params.env
-                        build(job: p_name, propagate: false)
+                        build(job: p_name.tokenize('"'), propagate: false)
                         parameters: [[$class: 'GitParameterValue', name: 'BRANCH', value: '${params.BRANCH}']] 
                         parameters: [choice(name: 'env', value: '${params.env}')]                 
                     }
