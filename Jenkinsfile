@@ -30,8 +30,10 @@ pipeline {
                         echo "选择的项目为:" + job_name
                         echo "当前分支为:" + params.BRANCH
                         echo "当前环境为:" + params.env
-                        build(job: job_name, propagate: false, parameters: [[$class: 'GitParameterValue', name: 'BRANCH', value: '${params.BRANCH}'], [choice(name: 'env', value: '${params.env}')]])
-//                      parameters: [choice(name: 'env', value: '${params.env}')]                 
+                        stage('当前执行工程:' + job_name){
+                            build(job: job_name, propagate: false, parameters: [[$class: 'GitParameterValue', name: 'BRANCH', value: '${params.BRANCH}'], choice(name: 'env', value: '${params.env}')])
+//                          parameters: [choice(name: 'env', value: '${params.env}')]     
+                        }            
                     }
                 }
             }
